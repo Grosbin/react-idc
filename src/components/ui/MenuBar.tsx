@@ -1,24 +1,35 @@
 import { Menubar } from "primereact/menubar";
 import { SplitButton } from "primereact/splitbutton";
-import { actionAuth } from "../actions/actionAuth";
+import { useNavigate } from "react-router-dom";
+import { actionAuth } from "../../actions/actionAuth";
 
 export const MenuBar = () => {
+  const navigate = useNavigate();
   const { startLogout } = actionAuth();
   const items = [
     {
       label: "Actividades",
       icon: "pi pi-calendar",
       role: "admin",
+      command: () => {
+        navigate("/actividades");
+      },
     },
     {
       label: "Oraciones",
       icon: "pi pi-heart",
       role: "admin",
+      command: () => {
+        navigate("/oraciones");
+      },
     },
     {
       label: "Anuncios",
       icon: "pi pi-comment",
       role: "admin",
+      command: () => {
+        navigate("/anuncios");
+      },
     },
   ];
 
@@ -28,11 +39,10 @@ export const MenuBar = () => {
       icon: "pi pi-sign-out",
       command: () => {
         startLogout();
+        navigate("/");
       },
     },
   ];
-
-  let nameItem = "Usuario";
 
   const start = (
     <img alt="logo" src="logo/Logo_Azul.png" height="40" className="mr-2"></img>
@@ -49,8 +59,6 @@ export const MenuBar = () => {
       <SplitButton icon="pi pi-user" model={itemsUser} />
     </div>
   );
-
-  console.log("MenuBar");
 
   return (
     <nav style={{ background: "#343e4d" }}>

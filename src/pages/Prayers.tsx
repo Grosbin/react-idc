@@ -7,7 +7,7 @@ import { useAppSelector } from "../hooks/useRedux";
 import { useEffect } from "react";
 import { actionPrayer } from "../actions/actionPrayer";
 
-export const Home = () => {
+export const Prayers = () => {
   const { prayers } = useAppSelector((state) => state.prayer);
   const { startLoadingPrayer } = actionPrayer();
 

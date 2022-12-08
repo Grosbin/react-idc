@@ -6,8 +6,9 @@ import { CardPrayers } from "../components/prayers/CardPrayers";
 import { useAppSelector } from "../hooks/useRedux";
 import { useEffect } from "react";
 import { actionPrayer } from "../actions/actionPrayer";
+import { FormActivities } from "../components/activities/FormActivities";
 
-export const Home = () => {
+export const Activities = () => {
   const { prayers } = useAppSelector((state) => state.prayer);
   const { startLoadingPrayer } = actionPrayer();
 
@@ -23,7 +24,7 @@ export const Home = () => {
         <div className="grid">
           <div className="col-12 md:col-12 lg:col-3">
             <Card>
-              <FormPrayers />
+              <FormActivities />
             </Card>
           </div>
           <div className="col-12 md:col-12 lg:col-9">

@@ -8,7 +8,7 @@ import store from "./store/store";
 
 import "./styles/styles.css";
 import { AppRouter } from "./routes/AppRouter";
-import { MenuBar } from "./components/MenuBar";
+import { MenuBar } from "./components/ui/MenuBar";
 
 const IglesiaDeCristo = () => {
   return (

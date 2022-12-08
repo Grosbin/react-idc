@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateType {
-  prayers: { type: string; names: string[] }[];
+  prayers: { id: string; type: string; names: string[] }[];
+  onCreatePrayer: boolean;
+  onUpdatePrayer: boolean;
+  onPrayerActive: { id: string; type: string; names: string[] };
 }
 
 const initialState: initialStateType = {
   prayers: [],
+  onCreatePrayer: true,
+  onUpdatePrayer: false,
+  onPrayerActive: { id: "", type: "", names: [] },
 };
 
 export const prayerReducer = createSlice({
@@ -17,13 +23,37 @@ export const prayerReducer = createSlice({
     },
     removePrayer: (state, action) => {
       state.prayers = state.prayers.filter(
-        (prayer) => prayer.type !== action.payload
+        (prayer) => prayer.id !== action.payload
+      );
+    },
+    updatePrayer: (state, action) => {
+      state.prayers = state.prayers.map((prayer) =>
+        prayer.id === action.payload.id ? action.payload : prayer
       );
     },
     loadPrayer: (state, action) => {
       state.prayers = action.payload;
     },
+    onPrayerActive: (state, action) => {
+      state.onPrayerActive = action.payload;
+    },
+    onCreatePrayer: (state) => {
+      state.onCreatePrayer = true;
+      state.onUpdatePrayer = false;
+    },
+    onUpdatePrayer: (state) => {
+      state.onUpdatePrayer = true;
+      state.onCreatePrayer = false;
+    },
   },
 });
 
-export const { addPrayer, removePrayer, loadPrayer } = prayerReducer.actions;
+export const {
+  addPrayer,
+  removePrayer,
+  loadPrayer,
+  updatePrayer,
+  onPrayerActive,
+  onCreatePrayer,
+  onUpdatePrayer,
+} = prayerReducer.actions;

@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Password } from "primereact/password";
-import { actionAuth } from "../actions/actionAuth";
+import { actionAuth } from "../../actions/actionAuth";
 
 interface defaultValues {
   email: string;

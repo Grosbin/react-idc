@@ -1,6 +1,4 @@
-import { FormLogin } from "../components/auth/FormLogin";
-import { Card } from "primereact/card";
-export const Login = () => {
+export const NotFound = () => {
   const img = (
     <img
       style={{ width: 100, paddingTop: 20 }}
@@ -19,9 +17,7 @@ export const Login = () => {
         backgroundColor: "#3b46f1",
       }}
     >
-      <Card title="Iniciar Sesión" header={img}>
-        <FormLogin />
-      </Card>
+      <h1>Felicidades ha encontrado una pagina que no existe :)</h1>
     </div>
   );
 };

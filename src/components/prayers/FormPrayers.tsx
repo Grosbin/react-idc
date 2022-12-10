@@ -122,7 +122,7 @@ export const FormPrayers = () => {
   };
 
   return (
-    <div className="form-demo">
+    <div className="" style={{ marginTop: 30 }}>
       <div className="">
         <div className="card">
           {/* <h5 className="text-center">Register</h5> */}

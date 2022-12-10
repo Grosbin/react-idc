@@ -14,7 +14,7 @@ export const NotFound = () => {
         height: "100vh",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#3b46f1",
+        backgroundColor: "#040d19",
       }}
     >
       <h1>Felicidades ha encontrado una pagina que no existe :)</h1>

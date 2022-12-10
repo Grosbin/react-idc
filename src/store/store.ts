@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { activityReducer } from "./activitySlice";
 import { authReducer } from "./authSlice";
+import { noticeReducer } from "./noticeSlice";
 import { prayerReducer } from "./prayerSlice";
 // import { useDispatch } from "react-redux";
 
@@ -7,6 +9,8 @@ const store = configureStore({
   reducer: {
     auth: authReducer.reducer,
     prayer: prayerReducer.reducer,
+    activity: activityReducer.reducer,
+    notice: noticeReducer.reducer,
   },
 });
 

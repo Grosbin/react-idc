@@ -7,13 +7,15 @@ import { useAppSelector } from "../hooks/useRedux";
 import { useEffect } from "react";
 import { actionPrayer } from "../actions/actionPrayer";
 import { FormActivities } from "../components/activities/FormActivities";
+import { CardActivities } from "../components/activities/CardActivities";
+import { actionActivity } from "../actions/actionActivity";
 
 export const Activities = () => {
-  const { prayers } = useAppSelector((state) => state.prayer);
-  const { startLoadingPrayer } = actionPrayer();
+  const { activities } = useAppSelector((state) => state.activity);
+  const { startLoadingActivity } = actionActivity();
 
   useEffect(() => {
-    startLoadingPrayer();
+    startLoadingActivity();
   }, []);
 
   return (
@@ -22,16 +24,16 @@ export const Activities = () => {
 
       <div className="prayers__container">
         <div className="grid">
-          <div className="col-12 md:col-12 lg:col-3">
-            <Card>
+          <div className="col-12 md:col-12 lg:col-4">
+            <Card title="Actividades">
               <FormActivities />
             </Card>
           </div>
-          <div className="col-12 md:col-12 lg:col-9">
+          <div className="col-12 md:col-12 lg:col-6">
             <div className="grid">
-              {prayers.map((prayer, i) => (
-                <div className="col-12 md:col-12 lg:col-6" key={i}>
-                  <CardPrayers {...prayer} />
+              {activities.map((activity, i) => (
+                <div className="col-12 md:col-6 lg:col-6" key={i}>
+                  <CardActivities {...activity} />
                 </div>
               ))}
             </div>

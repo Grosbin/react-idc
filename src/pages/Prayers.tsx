@@ -21,15 +21,15 @@ export const Prayers = () => {
 
       <div className="prayers__container">
         <div className="grid">
-          <div className="col-12 md:col-12 lg:col-3">
-            <Card>
+          <div className="col-12 md:col-12 lg:col-4">
+            <Card title="Oraciones">
               <FormPrayers />
             </Card>
           </div>
-          <div className="col-12 md:col-12 lg:col-9">
+          <div className="col-12 md:col-12 lg:col-6">
             <div className="grid">
               {prayers.map((prayer, i) => (
-                <div className="col-12 md:col-12 lg:col-6" key={i}>
+                <div className="col-12 md:col-6 lg:col-6" key={i}>
                   <CardPrayers {...prayer} />
                 </div>
               ))}

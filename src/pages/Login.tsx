@@ -11,13 +11,14 @@ export const Login = () => {
 
   return (
     <div
-      style={{
-        display: "grid",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#3b46f1",
-      }}
+      className="bg"
+      //   style={{
+      //     display: "grid",
+      //     height: "100vh",
+      //     justifyContent: "center",
+      //     alignItems: "center",
+      //     backgroundColor: "#3b46f1",
+      //   }}
     >
       <Card title="Iniciar Sesión" header={img}>
         <FormLogin />

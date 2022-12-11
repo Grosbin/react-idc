@@ -155,13 +155,18 @@ export const FormActivities = () => {
                   render={({ field }) => {
                     let value: string | { activityTitle: string } =
                       field.value ?? formData.title;
+                    console.log("value", value);
 
+                    if (value?.activityTitle === "") {
+                      value = "";
+                    }
                     return (
                       <Dropdown
                         value={value}
                         onChange={(e) => field.onChange(e.value)}
                         options={selectTitleActivity}
                         optionLabel="activityTitle"
+                        editable
                       />
                     );
                   }}

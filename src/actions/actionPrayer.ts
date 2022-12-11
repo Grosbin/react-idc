@@ -56,12 +56,12 @@ export const actionPrayer = () => {
     try {
       const collectionRef = collection(db, `prayers`);
       const docs = await getDocs(collectionRef);
-
       const prayer: Object[] = [];
       docs.forEach((doc) => {
         prayer.push({ id: doc.id, ...doc.data() });
       });
 
+      console.log("prayers", prayer);
       dispatch(loadPrayer(prayer));
     } catch (error) {
       console.error(error);

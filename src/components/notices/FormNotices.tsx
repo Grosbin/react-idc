@@ -5,6 +5,7 @@ import { useForm, Controller, DefaultValues } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { InputText } from "primereact/inputtext";
 import { actionNotice } from "../../actions/actionNotice";
+import { useAppSelector } from "../../hooks/useRedux";
 
 interface defaultValues {
   title: string;
@@ -19,8 +20,16 @@ const defaultValuesData: defaultValues = {
 };
 
 export const FormNotices = () => {
+  const { onNoticeActive, onCreateNotice, onUpdateNotice } = useAppSelector(
+    (state) => state.notice
+  );
   const [formData, setFormData] = useState<defaultValues>({} as defaultValues);
-  const { startAddNotice } = actionNotice();
+  const {
+    startAddNotice,
+    startOnCreateNotice,
+    startOnNoticeActive,
+    startUpdateNotice,
+  } = actionNotice();
 
   const {
     getValues,
@@ -34,14 +43,47 @@ export const FormNotices = () => {
     setFormData(defaultValuesData);
   }, []);
 
+  useEffect(() => {
+    const defaultValuesActive: defaultValues = {
+      title: onNoticeActive.title,
+      description: onNoticeActive.description,
+    };
+    console.log("defaultValuesActive", defaultValuesActive);
+    setFormData(defaultValuesActive);
+  }, [onNoticeActive, onUpdateNotice]);
+
   const onSubmit = (data: defaultValues) => {
-    console.log("data", data);
     const date = new Date().toString();
-    startAddNotice({ date, ...data });
+    const title = data.title ?? "";
+    if (onCreateNotice) {
+      startAddNotice({ date, ...data, title });
+    }
+
+    if (onUpdateNotice) {
+      const { title, description } = getValues();
+
+      const notice = {
+        id: onNoticeActive.id,
+        title: title || onNoticeActive.title,
+        description: description || onNoticeActive.description,
+        date,
+      };
+      startUpdateNotice(notice);
+    }
+
+    clearForm();
   };
 
   const clearForm = () => {
-    reset(defaultValuesData);
+    startOnCreateNotice();
+    startOnNoticeActive({
+      id: "",
+      title: "",
+      description: "",
+      date: "",
+    });
+    setFormData(defaultValuesData);
+    reset();
   };
 
   const getFormErrorMessage = (name: FormNoticesProps) => {
@@ -62,7 +104,7 @@ export const FormNotices = () => {
                   name="title"
                   control={control}
                   rules={{
-                    required: false,
+                    required: true,
                     minLength: {
                       value: 3,
                       message: "El titulo debe tener al menos 3 caracteres.",

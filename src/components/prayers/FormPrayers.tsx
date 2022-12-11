@@ -26,7 +26,7 @@ const fieldAmbit = [
   { ambit: "Salud" },
   { ambit: "Familias" },
   { ambit: "Seguridad" },
-  { ambit: "Fortalezas" },
+  { ambit: "Fortaleza" },
 ];
 
 export const FormPrayers = () => {

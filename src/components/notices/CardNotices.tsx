@@ -13,16 +13,18 @@ interface Props {
 }
 
 export const CardNotice = ({ title, description, id }: Props) => {
-  const { onUpdatePrayer } = useAppSelector((state) => state.prayer);
-  const { startRemoveNotice } = actionNotice();
+  const { onUpdateNotice } = useAppSelector((state) => state.notice);
+  const { startRemoveNotice, startOnNoticeActive, startOnUpdateNotice } =
+    actionNotice();
 
   const removeNotice = (id: string) => {
     startRemoveNotice(id);
   };
 
-  const updateNotice = (prayer: Props) => {
-    console.log(prayer);
-    // startUpdatePrayer(prayer);
+  const updateNotice = (notice: Props) => {
+    console.log(notice);
+    startOnNoticeActive(notice);
+    startOnUpdateNotice();
   };
 
   const footer = (notice: Props) => (
@@ -38,14 +40,14 @@ export const CardNotice = ({ title, description, id }: Props) => {
         className="p-button-primary"
         style={{ marginRight: ".25em" }}
         onClick={() => updateNotice(notice)}
-        disabled={onUpdatePrayer}
+        disabled={onUpdateNotice}
       />
       <Button
         label="Borrar"
         icon="pi pi-times"
         className="p-button-secondary"
         onClick={() => removeNotice(notice.id)}
-        disabled={onUpdatePrayer}
+        disabled={onUpdateNotice}
       />
     </div>
   );

@@ -79,7 +79,7 @@ export const actionNotice = () => {
     id: string;
     title: string;
     description: string;
-    date: string;
+    date?: string;
   }) => {
     dispatch(onNoticeActive(notice));
   };

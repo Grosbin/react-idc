@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-
+import { ScrollPanel } from "primereact/scrollpanel";
 import { ListBox } from "primereact/listbox";
 import { actionPrayer } from "../../actions/actionPrayer";
 import { useAppSelector } from "../../hooks/useRedux";
@@ -53,7 +53,9 @@ export const CardNotice = ({ title, description, id }: Props) => {
   );
   return (
     <Card title={title} footer={() => footer({ title, description, id })}>
-      <p>{description}</p>
+      <ScrollPanel style={{ width: "100%", height: "150px" }}>
+        <p>{description}</p>
+      </ScrollPanel>
     </Card>
   );
 };

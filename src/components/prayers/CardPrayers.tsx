@@ -1,6 +1,8 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
+import { ScrollPanel } from "primereact/scrollpanel";
+
 import { ListBox } from "primereact/listbox";
 import { actionPrayer } from "../../actions/actionPrayer";
 import { useAppSelector } from "../../hooks/useRedux";
@@ -58,11 +60,13 @@ export const CardPrayers = ({ type, names, id }: Props) => {
       title={`Oración por: ${type}`}
       footer={() => footer({ type, names, id })}
     >
-      <ol>
-        {names.map((prayer, index) => (
-          <li key={index}>{prayer}</li>
-        ))}
-      </ol>
+      <ScrollPanel style={{ width: "100%", height: "200px" }}>
+        <ol>
+          {names.map((prayer, index) => (
+            <li key={index}>{prayer}</li>
+          ))}
+        </ol>
+      </ScrollPanel>
     </Card>
   );
 };

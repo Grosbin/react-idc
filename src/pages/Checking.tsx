@@ -8,7 +8,7 @@ export const Checking = () => {
         height: "100vh",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#040d19",
+        backgroundColor: "#081220",
       }}
     >
       <ProgressSpinner strokeWidth="2" />

@@ -35,6 +35,13 @@ export const MenuBar = () => {
 
   const itemsUser = [
     {
+      label: "Agregar Admin",
+      icon: "pi pi-user-plus",
+      command: () => {
+        navigate("/add-admin");
+      },
+    },
+    {
       label: "Cerrar Sesión",
       icon: "pi pi-sign-out",
       command: () => {
@@ -45,7 +52,13 @@ export const MenuBar = () => {
   ];
 
   const start = (
-    <img alt="logo" src="logo/Logo_Azul.png" height="40" className="mr-2"></img>
+    <img
+      alt="logo"
+      src="logo/Logo_Azul.png"
+      height="40"
+      className="mr-2"
+      onClick={() => navigate("/")}
+    ></img>
   );
 
   const end = (
@@ -61,14 +74,14 @@ export const MenuBar = () => {
   );
 
   return (
-    <nav style={{ background: "#040d19" }}>
+    <nav style={{ background: "#081220" }}>
       <Menubar
         model={items}
         start={start}
         end={end}
         style={{
           justifyContent: "space-between",
-          backgroundColor: "#040d19",
+          backgroundColor: "#081220",
         }}
       />
     </nav>

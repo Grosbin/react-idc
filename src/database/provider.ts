@@ -1,11 +1,10 @@
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  updateProfile,
+  sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth as FirebaseAuth } from "./firebase";
+import { auth as FirebaseAuth, db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 interface User {
   email: string;
@@ -71,4 +70,20 @@ export const loginWithEmailPassword = async ({
 
 export const logoutFirebase = async () => {
   return await FirebaseAuth.signOut();
+};
+
+export const resetPassword = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(FirebaseAuth, email);
+  } catch (error: any) {
+    console.log(error);
+  }
+};
+
+export const addUserAdmin = async (email: string) => {
+  try {
+    await addDoc(collection(db, "admin"), { email });
+  } catch (error) {
+    console.log(error);
+  }
 };

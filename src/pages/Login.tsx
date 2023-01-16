@@ -1,6 +1,9 @@
 import { FormLogin } from "../components/auth/FormLogin";
 import { Card } from "primereact/card";
+import { Button } from "primereact/button";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
+  const navigate = useNavigate();
   const img = (
     <img
       style={{ width: 100, paddingTop: 20 }}
@@ -10,18 +13,21 @@ export const Login = () => {
   );
 
   return (
-    <div
-      className="bg"
-      //   style={{
-      //     display: "grid",
-      //     height: "100vh",
-      //     justifyContent: "center",
-      //     alignItems: "center",
-      //     backgroundColor: "#3b46f1",
-      //   }}
-    >
+    <div className="bg">
       <Card title="Iniciar Sesión" header={img}>
         <FormLogin />
+        <div
+          style={{ marginTop: 15, display: "flex", justifyContent: "flex-end" }}
+        >
+          <a
+            onClick={() => {
+              navigate("/restablecer");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Olvide mi contraseña
+          </a>
+        </div>
       </Card>
     </div>
   );

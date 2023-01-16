@@ -48,7 +48,6 @@ export const FormNotices = () => {
       title: onNoticeActive.title,
       description: onNoticeActive.description,
     };
-    console.log("defaultValuesActive", defaultValuesActive);
     setFormData(defaultValuesActive);
   }, [onNoticeActive, onUpdateNotice]);
 
@@ -177,12 +176,12 @@ export const FormNotices = () => {
               <Button
                 label="Guardar"
                 type="submit"
-                className="p-button-success"
+                className="p-button-primary"
               />
               <Button
                 label="Cancelar"
                 type="button"
-                icon="pi pi-times"
+                // icon="pi pi-times"
                 className="p-button-secondary"
                 onClick={clearForm}
               />

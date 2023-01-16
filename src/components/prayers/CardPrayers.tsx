@@ -20,12 +20,10 @@ export const CardPrayers = ({ type, names, id }: Props) => {
     actionPrayer();
 
   const removePrayer = (id: string) => {
-    console.log(id);
     startRemovePrayer(id);
   };
 
   const updatePrayer = (prayer: Props) => {
-    console.log(prayer);
     startOnPrayerActive(prayer);
     startOnUpdatePrayer();
     // startUpdatePrayer(prayer);
@@ -41,7 +39,7 @@ export const CardPrayers = ({ type, names, id }: Props) => {
       <Button
         label="Editar"
         icon="pi pi-check"
-        className="p-button-primary"
+        className="p-button-success"
         style={{ marginRight: ".25em" }}
         onClick={() => updatePrayer(prayer)}
         disabled={onUpdatePrayer}
@@ -57,6 +55,7 @@ export const CardPrayers = ({ type, names, id }: Props) => {
   );
   return (
     <Card
+      style={{ backgroundColor: "#3b46f1" }}
       title={`Oración por: ${type}`}
       footer={() => footer({ type, names, id })}
     >

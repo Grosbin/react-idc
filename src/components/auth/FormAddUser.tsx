@@ -6,24 +6,23 @@ import { useForm, Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 import { Password } from "primereact/password";
 import { actionAuth } from "../../actions/actionAuth";
+import { useNavigate } from "react-router-dom";
 
 interface defaultValues {
   email: string;
-  password: string;
 }
 
-type FormLoginProps = "email" | "password";
+type FormLoginProps = "email";
 
-export const FormLogin = () => {
-  const { startLogin, startGetUser } = actionAuth();
+export const FormAddUser = () => {
+  const navigate = useNavigate();
+  const { startAddUserAdmin } = actionAuth();
   const defaultValues: defaultValues = {
     email: "",
-    password: "",
   };
 
-  const [loadingLogin, setLoadingLogin] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  // const [formData, setFormData] = useState(defaultValues);
+  //   const [formData, setFormData] = useState(defaultValues);
 
   useEffect(() => {}, []); //
 
@@ -34,18 +33,10 @@ export const FormLogin = () => {
     reset,
   } = useForm({ defaultValues });
 
-  const onSubmit = async (data: defaultValues) => {
-    setLoadingLogin(true);
-    const validate = await startGetUser(data.email);
-
-    if (validate) {
-      // setFormData(data);
-      startLogin(data.email, data.password);
-    } else {
-      console.log("usuario no encontrado");
-      setShowMessage(true);
-    }
-    setLoadingLogin(false);
+  const onSubmit = (data: defaultValues) => {
+    // setFormData(data);
+    setShowMessage(true);
+    startAddUserAdmin(data.email);
     reset();
   };
 
@@ -55,13 +46,18 @@ export const FormLogin = () => {
     );
   };
 
+  const navigateHome = () => {
+    setShowMessage(false);
+    navigate("/");
+  };
+
   const dialogFooter = (
     <div className="flex justify-content-center">
       <Button
         label="OK"
         className="p-button-text"
         autoFocus
-        onClick={() => setShowMessage(false)}
+        onClick={navigateHome}
       />
     </div>
   );
@@ -77,10 +73,18 @@ export const FormLogin = () => {
       >
         <div className="flex justify-content-center align-items-center flex-column pt-6 px-3">
           <i
-            className="pi pi-lock"
+            className="pi pi-check-circle"
             style={{ fontSize: "5rem", color: "var(--green-500)" }}
           ></i>
-          <h2>No tiene permisos de Administrador</h2>
+          <h2>Usuario Administrador Agregado</h2>
+          {/* <h4>
+            Puede revisar la bandeja de entrada de su correo para completar los
+            pasos{" "}
+          </h4>
+          <p style={{ color: "var(--yellow-200)" }}>
+            Si no aparece en la bandeja de entrada, puede revisar si se
+            encuentra en SPAM.
+          </p> */}
         </div>
       </Dialog>
 
@@ -117,35 +121,7 @@ export const FormLogin = () => {
               {getFormErrorMessage("email")}
             </div>
 
-            <div className="field">
-              <span className="p-float-label">
-                <Controller
-                  name="password"
-                  control={control}
-                  rules={{ required: "La contraseña es requerida." }}
-                  render={({ field, fieldState }) => (
-                    <Password
-                      id={field.name}
-                      {...field}
-                      toggleMask
-                      className={classNames({
-                        "p-invalid": fieldState.invalid,
-                      })}
-                      feedback={false}
-                    />
-                  )}
-                />
-                <label
-                  htmlFor="password"
-                  className={classNames({ "p-error": errors.password })}
-                >
-                  Contraseña*
-                </label>
-              </span>
-              {getFormErrorMessage("password")}
-            </div>
-
-            <Button label="Entrar" loading={loadingLogin} />
+            <Button label="Agregar" />
           </form>
         </div>
       </div>

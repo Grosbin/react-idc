@@ -9,13 +9,14 @@ export const NotFound = () => {
 
   return (
     <div
-      style={{
-        display: "grid",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#040d19",
-      }}
+      className="bg"
+      // style={{
+      //   display: "grid",
+      //   height: "100vh",
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      //   backgroundColor: "#040d19",
+      // }}
     >
       <h1>Felicidades ha encontrado una pagina que no existe :)</h1>
     </div>

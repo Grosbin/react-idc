@@ -29,10 +29,10 @@ const defaultValuesData: defaultValues = {
 };
 
 const fieldActivityTitle = [
-  { activityTitle: "Culto Dominical" },
+  { activityTitle: "Culto Dom." },
   { activityTitle: "Clase Bíblica" },
-  { activityTitle: "Reunión de Damas" },
-  { activityTitle: "Reunión de Jóvenes" },
+  { activityTitle: "Reu. de Damas" },
+  { activityTitle: "Reu. de Jóvenes" },
 ];
 
 addLocale("es", {
@@ -106,11 +106,9 @@ export const FormActivities = () => {
   };
   const onSubmit = (data: defaultValues) => {
     setFormData(data);
-    console.log("data", data);
     const activity = transformData(data);
     startAddActivity(activity);
 
-    // startAddActivity(data);
     clearForm();
   };
 
@@ -124,7 +122,7 @@ export const FormActivities = () => {
 
     const hour = moment(data.hour).format("hh:mm A");
     const date = data.day?.toDateString();
-    const title = data.title.activityTitle;
+    const title = data.title.activityTitle ?? data.title;
     const description = data.description ?? "";
 
     return {
@@ -144,18 +142,23 @@ export const FormActivities = () => {
     <div className="" style={{ marginTop: 30 }}>
       <div className="">
         <div className="card">
-          {/* <h5 className="text-center">Register</h5> */}
           <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
             <div className="field" style={{ marginBottom: 25 }}>
               <span className="p-float-label">
                 <Controller
                   name="title"
                   control={control}
-                  rules={{ required: true }}
+                  rules={{
+                    required: true,
+                    maxLength: {
+                      value: 15,
+                      message:
+                        "El titulo es muy largo, por favor ingrese menos de 15 caracteres",
+                    },
+                  }}
                   render={({ field }) => {
                     let value: string | { activityTitle: string } =
                       field.value ?? formData.title;
-                    console.log("value", value);
 
                     if (value?.activityTitle === "") {
                       value = "";
@@ -292,12 +295,12 @@ export const FormActivities = () => {
               <Button
                 label="Guardar"
                 type="submit"
-                className="p-button-success"
+                className="p-button-primary"
               />
               <Button
                 label="Cancelar"
                 type="button"
-                icon="pi pi-times"
+                // icon="pi pi-times"
                 className="p-button-secondary"
                 onClick={clearForm}
               />

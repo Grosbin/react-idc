@@ -52,7 +52,6 @@ export const FormPrayers = () => {
       prayers: onPrayerActive.names.join("\n"),
       type: { ambit: onPrayerActive.type },
     };
-    console.log("defaultValuesActive", defaultValuesActive);
     setFormData(defaultValuesActive);
   }, [onPrayerActive, onUpdatePrayer]);
 
@@ -198,12 +197,12 @@ export const FormPrayers = () => {
               <Button
                 label="Guardar"
                 type="submit"
-                className="p-button-success"
+                className="p-button-primary"
               />
               <Button
                 label="Cancelar"
                 type="button"
-                icon="pi pi-times"
+                // icon="pi pi-times"
                 className="p-button-secondary"
                 onClick={clearForm}
               />

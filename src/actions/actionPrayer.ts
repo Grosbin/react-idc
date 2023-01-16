@@ -61,7 +61,6 @@ export const actionPrayer = () => {
         prayer.push({ id: doc.id, ...doc.data() });
       });
 
-      console.log("prayers", prayer);
       dispatch(loadPrayer(prayer));
     } catch (error) {
       console.error(error);

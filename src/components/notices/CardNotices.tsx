@@ -22,7 +22,6 @@ export const CardNotice = ({ title, description, id }: Props) => {
   };
 
   const updateNotice = (notice: Props) => {
-    console.log(notice);
     startOnNoticeActive(notice);
     startOnUpdateNotice();
   };
@@ -37,7 +36,7 @@ export const CardNotice = ({ title, description, id }: Props) => {
       <Button
         label="Editar"
         icon="pi pi-check"
-        className="p-button-primary"
+        className="p-button-success"
         style={{ marginRight: ".25em" }}
         onClick={() => updateNotice(notice)}
         disabled={onUpdateNotice}
@@ -52,7 +51,11 @@ export const CardNotice = ({ title, description, id }: Props) => {
     </div>
   );
   return (
-    <Card title={title} footer={() => footer({ title, description, id })}>
+    <Card
+      style={{ backgroundColor: "#3b46f1" }}
+      title={title}
+      footer={() => footer({ title, description, id })}
+    >
       <ScrollPanel style={{ width: "100%", height: "150px" }}>
         <p>{description}</p>
       </ScrollPanel>

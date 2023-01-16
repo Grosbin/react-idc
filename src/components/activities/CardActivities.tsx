@@ -25,7 +25,6 @@ export const CardActivities = ({
   const { startRemoveActivity } = actionActivity();
 
   const removeActivity = (id: string) => {
-    console.log(id);
     startRemoveActivity(id);
   };
 
@@ -53,7 +52,7 @@ export const CardActivities = ({
       <Button
         label="Borrar"
         icon="pi pi-times"
-        className="p-button-secondary"
+        className="p-button-success"
         onClick={() => removeActivity(activity.id)}
         disabled={onUpdateActivity}
       />
@@ -68,7 +67,7 @@ export const CardActivities = ({
       />
       <span className="card-activity" data-pr-tooltip={description}>
         <Card
-          style={{ backgroundColor: "#3b46f1" }}
+          style={{ backgroundColor: "#3b46f1", minHeight: 300 }}
           footer={() => footer({ id, title, description, day, hour })}
         >
           <h1>{title}</h1>

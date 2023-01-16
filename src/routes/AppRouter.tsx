@@ -9,6 +9,8 @@ import { Notices } from "../pages/Notices";
 import { Activities } from "../pages/Activities";
 import { Menubar } from "primereact/menubar";
 import { NotFound } from "../pages/NotFound";
+import { ResetPassword } from "../pages/ResetPassword";
+import { AddUserAdmin } from "../pages/AddUserAdmin";
 
 export const AppRouter = () => {
   // const { status } = useAppSelector((state) => state.auth);
@@ -23,21 +25,20 @@ export const AppRouter = () => {
       <Routes>
         {status === "is-authenticated" ? (
           <>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Activities />} />
             <Route path="/oraciones" element={<Prayers />} />
             <Route path="/anuncios" element={<Notices />} />
             <Route path="/actividades" element={<Activities />} />
+            <Route path="/add-admin" element={<AddUserAdmin />} />
             <Route path="/*" element={<NotFound />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Login />} />
+            <Route path="/restablecer" element={<ResetPassword />} />
             <Route path="/*" element={<NotFound />} />
           </>
         )}
-        {/* <Route path="/" element={<Login />} /> */}
-        {/* <Route path="/*" element={<Login />} /> */}
-        {/* <Route path="/oraciones" element={<Home />} /> */}
       </Routes>
     </BrowserRouter>
   );

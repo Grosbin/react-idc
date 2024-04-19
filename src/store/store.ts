@@ -3,6 +3,7 @@ import { activityReducer } from "./activitySlice";
 import { authReducer } from "./authSlice";
 import { noticeReducer } from "./noticeSlice";
 import { prayerReducer } from "./prayerSlice";
+import { memberReducer } from "./memberSlice";
 // import { useDispatch } from "react-redux";
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     prayer: prayerReducer.reducer,
     activity: activityReducer.reducer,
     notice: noticeReducer.reducer,
+    member: memberReducer.reducer,
   },
 });
 

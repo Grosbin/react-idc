@@ -74,14 +74,15 @@ export const MenuBar = () => {
   );
 
   return (
-    <nav style={{ background: "#081220" }}>
+    <nav style={{ background: "aliceblue" }}>
       <Menubar
-        model={items}
+        className="menu-icon__none"
+        // model={items}
         start={start}
         end={end}
         style={{
           justifyContent: "space-between",
-          backgroundColor: "#081220",
+          backgroundColor: "aliceblue",
         }}
       />
     </nav>

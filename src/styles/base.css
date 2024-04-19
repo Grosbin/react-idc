@@ -5,7 +5,8 @@
 }
 
 body {
-  background-color: #081220;
+  /* background-color: #081220; */
+  background-color: aliceblue;
 }
 
 .p-button {
@@ -224,4 +225,8 @@ body {
 .p-button-success {
   background-color: #0dc4ae !important;
   border-color: #0dc4ae !important;
+}
+
+.menu-icon__none .p-menubar-button {
+  display: none !important;
 }

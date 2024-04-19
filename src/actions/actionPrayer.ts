@@ -7,6 +7,7 @@ import {
   onPrayerActive,
   onCreatePrayer,
   onUpdatePrayer,
+  onActiveAmbitPrayer,
 } from "../store/prayerSlice";
 import {
   collection,
@@ -57,7 +58,7 @@ export const actionPrayer = () => {
       const collectionRef = collection(db, `prayers`);
       const docs = await getDocs(collectionRef);
       const prayer: Object[] = [];
-      docs.forEach((doc) => {
+      docs.forEach(doc => {
         prayer.push({ id: doc.id, ...doc.data() });
       });
 
@@ -83,6 +84,10 @@ export const actionPrayer = () => {
     dispatch(onUpdatePrayer());
   };
 
+  const startOnActiveAmbitPrayer = (ambit: { ambit: string }) => {
+    dispatch(onActiveAmbitPrayer(ambit));
+  };
+
   return {
     startAddPrayer,
     startRemovePrayer,
@@ -91,5 +96,6 @@ export const actionPrayer = () => {
     startOnPrayerActive,
     startOnCreatePrayer,
     startOnUpdatePrayer,
+    startOnActiveAmbitPrayer,
   };
 };

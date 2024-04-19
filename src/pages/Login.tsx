@@ -14,7 +14,14 @@ export const Login = () => {
 
   return (
     <div className="bg">
-      <Card title="Iniciar Sesión" header={img}>
+      <Card
+        style={{
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          minWidth: 400,
+        }}
+        header={img}
+      >
         <FormLogin />
         <div
           style={{ marginTop: 15, display: "flex", justifyContent: "flex-end" }}

@@ -4,3 +4,13 @@
   /* gap: 2rem; */
   margin: 30px;
 }
+
+.p-multiselect-header .p-checkbox {
+  display: none;
+}
+/*auto enfocar cuando se construlla el elementos*/
+.p-multiselect-panel
+  .p-multiselect-header
+  .p-multiselect-filter-container
+  .p-inputtext {
+}

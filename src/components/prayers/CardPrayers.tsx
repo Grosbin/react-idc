@@ -14,14 +14,14 @@ interface Props {
 }
 
 export const CardPrayers = ({ type, names, id }: Props) => {
-  const { onUpdatePrayer } = useAppSelector((state) => state.prayer);
+  const { onUpdatePrayer } = useAppSelector(state => state.prayer);
 
   const { startRemovePrayer, startOnUpdatePrayer, startOnPrayerActive } =
     actionPrayer();
 
-  const removePrayer = (id: string) => {
-    startRemovePrayer(id);
-  };
+  // const removePrayer = (id: string) => {
+  //   startRemovePrayer(id);
+  // };
 
   const updatePrayer = (prayer: Props) => {
     startOnPrayerActive(prayer);
@@ -44,13 +44,13 @@ export const CardPrayers = ({ type, names, id }: Props) => {
         onClick={() => updatePrayer(prayer)}
         disabled={onUpdatePrayer}
       />
-      <Button
+      {/* <Button
         label="Borrar"
         icon="pi pi-times"
         className="p-button-secondary"
         onClick={() => removePrayer(prayer.id)}
         disabled={onUpdatePrayer}
-      />
+      /> */}
     </div>
   );
   return (

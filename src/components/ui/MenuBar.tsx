@@ -55,7 +55,7 @@ export const MenuBar = () => {
     <img
       alt="logo"
       src="logo/Logo_Azul.png"
-      height="40"
+      height="60"
       className="mr-2"
       onClick={() => navigate("/")}
     ></img>

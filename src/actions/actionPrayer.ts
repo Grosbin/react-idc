@@ -31,10 +31,14 @@ export const actionPrayer = () => {
     }
   };
 
-  const startRemovePrayer = async (prayerType: string) => {
+  const startRemovePrayer = async (prayer: {
+    id: string;
+    name: string;
+    type: string;
+  }) => {
     try {
-      await deleteDoc(doc(db, "prayers", prayerType));
-      dispatch(removePrayer(prayerType));
+      // await deleteDoc(doc(db, "prayers", prayerType));
+      dispatch(removePrayer(prayer));
     } catch (error) {
       console.error(error);
     }

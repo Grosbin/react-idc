@@ -11,16 +11,17 @@ import { actionPrayer } from "../../actions/actionPrayer";
 import { useAppSelector } from "../../hooks/useRedux";
 import { MultiSelect } from "primereact/multiselect";
 import { actionMember } from "../../actions/actionMember";
+import { addMember } from "../../store/memberSlice";
 
 interface defaultValues {
-  prayers: string;
-  type: { ambit: string };
+  members: Array<{ id: string; name: string }>;
+  type: { ambit: string } | null;
 }
 
-type FormPrayersProps = "prayers" | "type";
+type FormPrayersProps = "members" | "type";
 
 const defaultValuesData: defaultValues = {
-  prayers: "",
+  members: [],
   type: { ambit: "" },
 };
 
@@ -32,9 +33,8 @@ const fieldAmbit = [
 ];
 
 export const FormPrayers = () => {
-  const { onPrayerActive, onCreatePrayer, onUpdatePrayer } = useAppSelector(
-    state => state.prayer
-  );
+  const { prayers, onPrayerActive, onCreatePrayer, onUpdatePrayer } =
+    useAppSelector(state => state.prayer);
   const { members } = useAppSelector(state => state.member);
   const {
     startAddPrayer,
@@ -43,11 +43,18 @@ export const FormPrayers = () => {
     startOnCreatePrayer,
     startOnActiveAmbitPrayer,
   } = actionPrayer();
+
   const { startAddMember, startLoadingMember } = actionMember();
   const [formData, setFormData] = useState<defaultValues>({} as defaultValues);
   const [selectAmbit, setSelectAmbit] = useState<{ ambit: string }[]>([]);
   const [ambit, setAmbit] = useState<{ ambit: string } | null>(null);
-  const [cities, setCities] = useState<{ name: string }[]>([]);
+  const [membersData, setMembersData] = useState<{ name: string }[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<
+    [{ id: string; name: string }] | []
+  >([]);
+  const [showAddButton, setShowAddButton] = useState(false);
+  const [memberSearch, setMemberSearch] = useState("");
+  const multiselectRef = useRef(null);
 
   useEffect(() => {
     setSelectAmbit(fieldAmbit);
@@ -59,24 +66,17 @@ export const FormPrayers = () => {
     if (ambit) {
       startOnActiveAmbitPrayer(ambit);
     }
-    const cities = members.map(member => {
+
+    loadingDataMembers();
+  }, [ambit]);
+
+  const loadingDataMembers = () => {
+    const membersData = members.map(member => {
       return member;
     });
 
-    setCities(cities);
-
-    console.log(cities);
-    console.log(members);
-    console.log(selectedCities);
-  }, [ambit]);
-
-  useEffect(() => {
-    const defaultValuesActive: defaultValues = {
-      prayers: onPrayerActive.names.join("\n"),
-      type: { ambit: onPrayerActive.type },
-    };
-    setFormData(defaultValuesActive);
-  }, [onPrayerActive, onUpdatePrayer]);
+    setMembersData(membersData);
+  };
 
   const {
     getValues,
@@ -87,65 +87,23 @@ export const FormPrayers = () => {
   } = useForm({ defaultValues: formData });
 
   const onSubmit = (data: defaultValues) => {
-    setFormData(data);
-
-    if (onCreatePrayer) {
-      onCreateForm(data);
+    if (data.type === null || data.members.length === 0) {
+      return;
     }
+    const prayerWithType = prayers.find(
+      prayer => prayer.type === data.type?.ambit
+    ) || { id: "", type: "", names: [] };
 
-    if (onUpdatePrayer) {
-      onUpdateForm();
-    }
+    let names = combineNames(data.members, prayerWithType.names);
 
-    clearForm();
+    startUpdatePrayer({ id: prayerWithType.id, type: data.type.ambit, names });
+
+    setSelectedMembers([]);
+
+    console.log("DAta ", data);
+    console.log("Ambit", ambit);
+    console.log("Selected Members", selectedMembers);
   };
-
-  const onCreateForm = (data: defaultValues) => {
-    const { prayers, type } = data;
-    const prayersArray = prayers.split("\n");
-
-    const prayer = {
-      type: type.ambit,
-      names: prayersArray,
-    };
-    startAddPrayer(prayer);
-  };
-
-  const onUpdateForm = () => {
-    const { type: typeValues, prayers: prayersValues } = getValues();
-    let prayersArray;
-    prayersValues
-      ? (prayersArray = prayersValues.split("\n"))
-      : (prayersArray = formData.prayers.split("\n"));
-    const prayer = {
-      id: onPrayerActive.id,
-      type: typeValues === undefined ? formData.type.ambit : typeValues.ambit,
-      names: prayersArray,
-    };
-    startUpdatePrayer(prayer);
-  };
-
-  const clearForm = () => {
-    startOnPrayerActive({
-      id: "",
-      type: "",
-      names: [],
-    });
-
-    startOnCreatePrayer();
-    setFormData(defaultValuesData);
-    reset();
-  };
-
-  const getFormErrorMessage = (name: FormPrayersProps) => {
-    return (
-      errors[name] && <small className="p-error">{errors[name]?.message}</small>
-    );
-  };
-
-  const [selectedCities, setSelectedCities] = useState<[]>([]);
-  const [showAddButton, setShowAddButton] = useState(false);
-  const multiselectRef = useRef(null);
 
   const handleFocus = () => {
     setTimeout(() => {
@@ -161,9 +119,6 @@ export const FormPrayers = () => {
 
   const filterMember = (name: string) => {
     const member = name;
-    console.log("Agregar nuevo miembro", member);
-    console.log(cities);
-    const filter = cities.find(city => city.name === member);
 
     if (member === "") {
       setShowAddButton(false);
@@ -172,18 +127,61 @@ export const FormPrayers = () => {
     }
   };
 
+  const combineNames = (
+    array1: Array<{ name: string }>,
+    array2: Array<string>
+  ) => {
+    const names1 = array1.map(object => object.name);
+    const names2 = array2;
+    const combinedNames = [...names1, ...names2];
+    return combinedNames;
+  };
+
+  const addMember = () => {
+    console.log("Add Member: ", memberSearch);
+
+    if (memberSearch.length < 3) return;
+
+    startAddMember({ name: memberSearch });
+    // startLoadingMember();
+    // loadingDataMembers();
+    setMembersData([...membersData, { name: memberSearch }]);
+    console.log("Members", selectedMembers);
+  };
+
   return (
-    <div className="" style={{ marginTop: 30 }}>
+    <div className="" style={{ marginTop: 0 }}>
       <div className="">
+        <div
+          className="flex gap-5"
+          style={{ display: "flex", justifyContent: "flex-start" }}
+        >
+          <Button
+            label="Guardar"
+            onClick={() => onSubmit({ type: ambit, members: selectedMembers })}
+            className="p-button-primary mb-5 mt-0"
+          />
+          {/* <Button
+            label="Cancelar"
+            type="button"
+            // icon="pi pi-times"
+            className="p-button-secondary"
+          /> */}
+        </div>
         <div className="card">
           {/* <h5 className="text-center">Register</h5> */}
-          <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-            <div className="field" style={{ marginBottom: 25 }}>
+
+          <form className="p-fluid" style={{ width: "100%" }}>
+            <div
+              className="field"
+              style={{
+                marginBottom: 25,
+              }}
+            >
               <span className="p-float-label">
                 <Controller
                   name="type"
                   control={control}
-                  rules={{ required: onCreatePrayer }}
                   render={({ field }) => {
                     // let value: string | { ambit: string } =
                     //   field.value ?? formData.type;
@@ -207,7 +205,7 @@ export const FormPrayers = () => {
                 </label>
               </span>
 
-              {getFormErrorMessage("type")}
+              {/* {getFormErrorMessage("type")} */}
             </div>
 
             <div
@@ -217,27 +215,29 @@ export const FormPrayers = () => {
               style={{ position: "relative" }}
             >
               <MultiSelect
-                value={selectedCities}
-                options={cities}
+                value={selectedMembers}
+                options={membersData}
                 optionLabel="name"
                 filter
                 placeholder="Miembros"
                 emptyFilterMessage="No se encontraron miembros"
-                selectedItemsLabel={`${selectedCities?.length} miembros seleccionados`}
+                selectedItemsLabel={`${selectedMembers?.length} miembros seleccionados`}
                 maxSelectedLabels={3}
                 className="w-full"
                 onChange={e => {
-                  setSelectedCities(e.value);
+                  setSelectedMembers(e.value);
                   handleFocus();
                 }}
                 onFilter={e => {
                   filterMember(e.filter);
+                  setMemberSearch(e.filter);
                 }}
               />
               {showAddButton && (
                 <button
                   className="p-button p-component p-button-raised p-button-primary mt-2"
-                  onClick={() => console.log("Agregar nuevo miembro")}
+                  onClick={() => addMember()}
+                  type="button"
                   style={{
                     position: "absolute",
                     zIndex: 1,
@@ -252,20 +252,6 @@ export const FormPrayers = () => {
               )}
             </div>
           </form>
-          <div className="flex gap-5 mt-5">
-            <Button
-              label="Guardar"
-              type="submit"
-              className="p-button-primary"
-            />
-            <Button
-              label="Cancelar"
-              type="button"
-              // icon="pi pi-times"
-              className="p-button-secondary"
-              onClick={clearForm}
-            />
-          </div>
         </div>
       </div>
     </div>

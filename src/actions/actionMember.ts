@@ -13,7 +13,7 @@ import { db } from "../database/firebase";
 export const actionMember = () => {
   const dispatch = useAppDispatch();
 
-  const startAddMember = async (member: { type: string; names: string[] }) => {
+  const startAddMember = async (member: { name: string }) => {
     try {
       const docRef = await addDoc(collection(db, "members"), member);
       dispatch(addMember({ id: docRef.id, ...member }));

@@ -6,9 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "android": "npm run build && npx cap sync android && npx cap open android",
+    "ios": "npm run build && npx cap sync ios && npx cap open ios"
   },
   "dependencies": {
+    "@capacitor/android": "^5.7.4",
+    "@capacitor/cli": "^5.7.4",
+    "@capacitor/core": "^5.7.4",
+    "@capacitor/ios": "^5.7.4",
     "@reduxjs/toolkit": "^1.9.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.14.0",

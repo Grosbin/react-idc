@@ -2,5 +2,99 @@
   /* display: flex; */
   /* flex-direction: column; */
   /* gap: 2rem; */
-  margin: 30px;
+  margin: 20px;
+}
+
+.p-multiselect-header .p-checkbox {
+  display: none;
+}
+/*auto enfocar cuando se construlla el elementos*/
+.p-multiselect-panel
+  .p-multiselect-header
+  .p-multiselect-filter-container
+  .p-inputtext {
+}
+
+.prayers__item {
+  width: 20%;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  /* position: relative; */
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.prayers__item-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  width: 100px;
+  height: 80px;
+  gap: 15px;
+}
+
+.item__icon {
+  font-size: 2rem;
+  margin: 0px;
+}
+
+.item__text {
+  font-size: 15px;
+  margin: 5px 0px 0px 0px;
+  color: #9e9e9e;
+}
+
+.item__counter {
+  font-weight: 600;
+  font-size: 45px;
+  color: #0dc4ae;
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+  .prayers__item {
+    width: 82px; /* Ocupa el ancho completo en dispositivos móviles */
+    height: 65px; /* Altura automática para adaptarse al contenido */
+    flex-direction: column; /* Cambio de dirección de los elementos */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #0dc4ae;
+    gap: 0px;
+  }
+
+  .prayers__item-icon {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 0px;
+    position: relative;
+  }
+
+  .item__icon {
+    font-size: 1.5rem; /* Reducción del tamaño del icono */
+    position: absolute;
+    color: #fff;
+  }
+
+  .item__text {
+    display: none; /* Ocultar el texto en dispositivos móviles */
+  }
+
+  .item__counter {
+    font-size: 20px; /* Reducción del tamaño del contador */
+    position: absolute;
+    bottom: -20px;
+    right: 5px;
+    color: #fff;
+  }
 }

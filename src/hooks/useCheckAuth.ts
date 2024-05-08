@@ -5,11 +5,11 @@ import { auth as FirebaseAuth } from "../database/firebase";
 import { useAppDispatch, useAppSelector } from "./useRedux";
 
 export const useCheckAuth = () => {
-  const { status } = useAppSelector((state) => state.auth);
+  const { status } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(FirebaseAuth, async (user) => {
+    onAuthStateChanged(FirebaseAuth, async user => {
       if (!user) return dispatch(logout());
 
       const { uid, email } = user;

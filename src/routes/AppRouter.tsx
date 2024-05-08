@@ -25,7 +25,7 @@ export const AppRouter = () => {
       <Routes>
         {status === "is-authenticated" ? (
           <>
-            <Route path="/" element={<Activities />} />
+            <Route path="/" element={<Prayers />} />
             <Route path="/oraciones" element={<Prayers />} />
             <Route path="/anuncios" element={<Notices />} />
             <Route path="/actividades" element={<Activities />} />

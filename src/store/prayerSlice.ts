@@ -5,6 +5,7 @@ interface initialStateType {
   onCreatePrayer: boolean;
   onUpdatePrayer: boolean;
   onPrayerActive: { id: string; type: string; names: string[] };
+  onAmbitPrayerActive: { ambit: string };
 }
 
 const initialState: initialStateType = {
@@ -12,6 +13,7 @@ const initialState: initialStateType = {
   onCreatePrayer: true,
   onUpdatePrayer: false,
   onPrayerActive: { id: "", type: "", names: [] },
+  onAmbitPrayerActive: { ambit: "" },
 };
 
 export const prayerReducer = createSlice({
@@ -23,11 +25,11 @@ export const prayerReducer = createSlice({
     },
     removePrayer: (state, action) => {
       state.prayers = state.prayers.filter(
-        (prayer) => prayer.id !== action.payload
+        prayer => prayer.id !== action.payload
       );
     },
     updatePrayer: (state, action) => {
-      state.prayers = state.prayers.map((prayer) =>
+      state.prayers = state.prayers.map(prayer =>
         prayer.id === action.payload.id ? action.payload : prayer
       );
     },
@@ -37,13 +39,16 @@ export const prayerReducer = createSlice({
     onPrayerActive: (state, action) => {
       state.onPrayerActive = action.payload;
     },
-    onCreatePrayer: (state) => {
+    onCreatePrayer: state => {
       state.onCreatePrayer = true;
       state.onUpdatePrayer = false;
     },
-    onUpdatePrayer: (state) => {
+    onUpdatePrayer: state => {
       state.onUpdatePrayer = true;
       state.onCreatePrayer = false;
+    },
+    onActiveAmbitPrayer: (state, action) => {
+      state.onAmbitPrayerActive = action.payload;
     },
   },
 });
@@ -56,4 +61,5 @@ export const {
   onPrayerActive,
   onCreatePrayer,
   onUpdatePrayer,
+  onActiveAmbitPrayer,
 } = prayerReducer.actions;

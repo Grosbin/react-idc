@@ -49,7 +49,7 @@ export const MemberNamePrayers = ({ type, name, id, index }: Props) => {
 
     setTimeout(() => {
       setLoadingPrayer(false);
-    }, 5000);
+    }, 500);
   };
 
   return (
@@ -66,7 +66,9 @@ export const MemberNamePrayers = ({ type, name, id, index }: Props) => {
         position: "relative",
       }}
     >
-      <p style={{ marginLeft: "20px", textAlign: "start" }}>{name}</p>
+      <p style={{ marginLeft: "20px", textAlign: "start", color: "#757575" }}>
+        {name}
+      </p>
       {/* <div
         style={{
           position: "absolute",
@@ -97,6 +99,7 @@ export const MemberNamePrayers = ({ type, name, id, index }: Props) => {
           color: "#d4d4d4",
           borderStyle: "none",
         }}
+        disabled={loadingPrayer}
         loading={loadingPrayer}
         onClick={() => removeNamePrayer(id, type, name, index)}
       />

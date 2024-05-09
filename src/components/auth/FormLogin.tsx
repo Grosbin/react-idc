@@ -85,7 +85,7 @@ export const FormLogin = () => {
       </Dialog>
 
       <div className="justify-content-center">
-        <div className="card">
+        <div style={{ width: "100%" }}>
           {/* <h5 className="text-center">Register</h5> */}
           <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
             <div className="field">

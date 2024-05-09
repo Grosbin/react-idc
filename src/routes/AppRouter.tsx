@@ -11,6 +11,7 @@ import { Menubar } from "primereact/menubar";
 import { NotFound } from "../pages/NotFound";
 import { ResetPassword } from "../pages/ResetPassword";
 import { AddUserAdmin } from "../pages/AddUserAdmin";
+import { PrayerData } from "../pages/prayers/PrayerData";
 
 export const AppRouter = () => {
   // const { status } = useAppSelector((state) => state.auth);
@@ -30,6 +31,7 @@ export const AppRouter = () => {
             <Route path="/anuncios" element={<Notices />} />
             <Route path="/actividades" element={<Activities />} />
             <Route path="/add-admin" element={<AddUserAdmin />} />
+            <Route path="/oraciones-data" element={<PrayerData />} />
             <Route path="/*" element={<NotFound />} />
           </>
         ) : (

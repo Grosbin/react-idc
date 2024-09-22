@@ -186,6 +186,7 @@ export const FormPrayers = () => {
             label="Guardar"
             onClick={() => onSubmit({ type: ambit, members: selectedMembers })}
             className="p-button-primary mb-5 mt-0"
+            disabled={selectedMembers.length === 0}
           />
           {/* <Button
             label="Cancelar"

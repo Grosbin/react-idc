@@ -172,9 +172,12 @@ body {
 .field {
   margin-bottom: 1.5rem;
 }
-
 .form-demo .card {
-  min-width: 450px;
+  /* min-width: 450px; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .form-demo .card form {
   margin-top: 2rem;
@@ -195,7 +198,9 @@ body {
 @media screen and (max-width: 640px) {
   .form-demo .card {
     width: 100%;
-    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .p-fluid {
     width: 100%;

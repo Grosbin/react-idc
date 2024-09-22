@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
+import { redirect } from "react-router-dom";
 
 interface Props {
   type: string;
   counter: string;
+  redirect: Function;
 }
 
-export const ItemPrayers = ({ type, counter }: Props) => {
+export const ItemPrayers = ({ type, counter, redirect }: Props) => {
   const [iconPrayer, setIconPrayer] = useState<string>("pi pi-user");
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export const ItemPrayers = ({ type, counter }: Props) => {
   }, [type]);
 
   return (
-    <div className="prayers__item">
+    <div className="prayers__item" onClick={() => redirect()}>
       <div className="prayers__item-icon">
         <i className={`pi ${iconPrayer} item__icon`}></i>
         <p className="item__text">{type}</p>

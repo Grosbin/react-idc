@@ -13,14 +13,27 @@ export const Login = () => {
   );
 
   return (
-    <div className="bg">
-      <Card
+    <div
+      className="bg"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        justifyItems: "center",
+      }}
+    >
+      <img
+        style={{ width: 100, paddingTop: 20, marginBottom: 30 }}
+        alt="Iglesia de Cristo"
+        src="logo/Logo_Blanco.png"
+      />
+      <div
         style={{
           backgroundColor: "transparent",
           boxShadow: "none",
-          minWidth: 400,
+          width: "80%",
+          maxWidth: 400,
         }}
-        header={img}
       >
         <FormLogin />
         <div
@@ -30,12 +43,12 @@ export const Login = () => {
             onClick={() => {
               navigate("/restablecer");
             }}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", color: "#d4d4d4" }}
           >
             Olvide mi contraseña
           </a>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

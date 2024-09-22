@@ -8,8 +8,11 @@ import { useEffect, useState } from "react";
 import { actionPrayer } from "../actions/actionPrayer";
 import { MemberNamePrayers } from "../components/prayers/MemberNamePrayers";
 import { ItemPrayers } from "../components/prayers/ItemPrayers";
+import { useNavigate } from "react-router-dom";
 
 export const Prayers = () => {
+  const navigate = useNavigate();
+
   const { prayers, onAmbitPrayerActive } = useAppSelector(
     state => state.prayer
   );
@@ -66,6 +69,9 @@ export const Prayers = () => {
             key={p.id}
             type={p.type}
             counter={p.names.length.toString()}
+            redirect={() =>
+              navigate("/oraciones-data", { state: { ambit: p.type } })
+            }
           />
         ))}
       </div>

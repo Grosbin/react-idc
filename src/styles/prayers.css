@@ -43,7 +43,7 @@
 }
 
 .item__icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0px;
 }
 
@@ -55,7 +55,7 @@
 
 .item__counter {
   font-weight: 600;
-  font-size: 45px;
+  font-size: 35px;
   color: #0dc4ae;
 }
 
@@ -81,7 +81,7 @@
   }
 
   .item__icon {
-    font-size: 1.5rem; /* Reducción del tamaño del icono */
+    font-size: 1rem; /* Reducción del tamaño del icono */
     position: absolute;
     color: #fff;
   }

@@ -12,6 +12,7 @@ import { useAppSelector } from "../../hooks/useRedux";
 import { MultiSelect } from "primereact/multiselect";
 import { actionMember } from "../../actions/actionMember";
 import { addMember } from "../../store/memberSlice";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 interface defaultValues {
   members: Array<{ id: string; name: string }>;
@@ -55,6 +56,17 @@ export const FormPrayers = () => {
   const [showAddButton, setShowAddButton] = useState(false);
   const [memberSearch, setMemberSearch] = useState("");
   const multiselectRef = useRef(null);
+
+  const accept = () => {
+    startAddMember({ name: memberSearch });
+    // startLoadingMember();
+    // loadingDataMembers();
+    setMembersData([...membersData, { name: memberSearch }]);
+  };
+
+  const reject = () => {
+    console.log("reject");
+  };
 
   useEffect(() => {
     setSelectAmbit(fieldAmbit);
@@ -142,15 +154,29 @@ export const FormPrayers = () => {
 
     if (memberSearch.length < 3) return;
 
-    startAddMember({ name: memberSearch });
+    confirm();
+    // startAddMember({ name: memberSearch });
     // startLoadingMember();
     // loadingDataMembers();
-    setMembersData([...membersData, { name: memberSearch }]);
-    console.log("Members", selectedMembers);
+    // setMembersData([...membersData, { name: memberSearch }]);
+    // console.log("Members", selectedMembers);
   };
 
+  const confirm = () => {
+    confirmDialog({
+      message: `Esta seguro de agregar el miembro: ${memberSearch}?`,
+      header: "Confirmación",
+      icon: "pi pi-exclamation-triangle",
+      // @ts-ignore
+      defaultFocus: "reject",
+      acceptLabel: "Si",
+      accept,
+      reject,
+    });
+  };
   return (
     <div className="" style={{ marginTop: 0 }}>
+      <ConfirmDialog />
       <div className="">
         <div
           className="flex gap-5"
